@@ -13,6 +13,10 @@ import sys
 import urllib2
 from bs4 import BeautifulSoup
 
+## Player Handle
+searchHandle = 'Type Your Player Handle Here'
+
+## EVO Waves
 waves = [
     'a101',
     'a102',
@@ -143,11 +147,15 @@ waves = [
     'f117'
 ]
 
+__version__ = "0.1"
+AGENT = "%s/%s" % (__name__, __version__)
+
 class Fetcher(object):
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self, wave):
+        self.url = "http://evo2015.s3.amazonaws.com/brackets/ssbm_" + wave + ".html"
         self.urls = []
+        self.wave = wave
 
     def __getitem__(self, x):
         return self.urls[x]
@@ -187,18 +195,15 @@ class Fetcher(object):
             
             for div in divs:
                 playerHandle = div.string.strip()
-                ### INSERT PLAYER HANDLE HERE ###
-                # if playerHandle and playerHandle == '':
-                    # print playerHandle
+                
+                if playerHandle and playerHandle == searchHandle:
+                    print "Wave: %s" % self.wave
+                    print playerHandle
 
 def main():
     for wave in waves:
-        url = "http://evo2015.s3.amazonaws.com/brackets/ssbm_" + wave + ".html"
-
-        print "Wave: %s\n" % wave
-        page = Fetcher(url)
+        page = Fetcher(wave)
         page.fetch()
-        print "\n"
 
 if __name__ == "__main__":
     main()
