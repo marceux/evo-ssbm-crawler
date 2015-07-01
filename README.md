@@ -11,3 +11,5 @@ Crawls the EVO Super Smash Bros Melee Brackets
 - Run the python script
 - Wait until script ends
 - Profit(?)
+
+![Example](example.png)
